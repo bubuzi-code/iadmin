@@ -1,0 +1,3 @@
+club\mikusun\iadmin\cache\server\RedisServer.class
+club\mikusun\iadmin\cache\config\RedisCacheServerAutoConfiguration.class
+club\mikusun\iadmin\cache\util\FastJsonRedisSerializer.class
