@@ -2,10 +2,15 @@ package club.mikusun.iadmin.domain.account;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
+
+import static javax.persistence.ConstraintMode.*;
 
 @Data
 @Entity
@@ -38,9 +43,35 @@ public class Account implements Serializable {
     @Column
     private String salt;
 
+
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.REFRESH}
+    )
+    @Fetch(FetchMode.SELECT)
+    @JoinTable(
+            name = "account_role",
+            joinColumns = {@JoinColumn(
+                            name = "uid",
+                            referencedColumnName = "uid" ,
+                            foreignKey = @ForeignKey(name = "test1",value = NO_CONSTRAINT)
+                    )},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "rid" ,
+                    foreignKey = @ForeignKey(name = "test1",value = NO_CONSTRAINT)
+            )},
+            foreignKey = @ForeignKey(value = NO_CONSTRAINT),
+            inverseForeignKey = @ForeignKey(value = NO_CONSTRAINT)
+    )
+    private Set<Role> roles;
+
     public Account(String accounr,String password,String salt){
         this.account_str = accounr;
         this.password = password;
         this.salt = salt;
+    }
+
+    public int getId(){
+        return this.uid;
     }
 }
