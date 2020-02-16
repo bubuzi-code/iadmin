@@ -1,33 +1,55 @@
 package club.mikusun.iadmin.account.config;
 
+import club.mikusun.iadmin.account.dao.AccessDao;
+import club.mikusun.iadmin.account.shiro.filter.AccountFormAuthenticationFilter;
 import club.mikusun.iadmin.account.shiro.Realm.AccountRealm;
-import club.mikusun.iadmin.account.util.R;
+import club.mikusun.iadmin.account.shiro.serializer.ShiroFastJsonRedisSerializer;
+import club.mikusun.iadmin.cache.util.FastJsonRedisSerializer;
+import club.mikusun.iadmin.domain.account.Access;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.util.StringUtils;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.crazycake.shiro.RedisCache;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.crazycake.shiro.serializer.StringSerializer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.Sort;
 
+import javax.servlet.Filter;
 import java.util.*;
 
 @Configuration
+//@ConditionalOnBean(AccessDao.class)
 public class ShiroConfig {
+
+    @Autowired
+    private AccessDao accessDao;
+    /**
+     * 开启aop注解支持,鉴权
+     * @param securityManager
+     * @return
+     */
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
+    }
+
     // 传入shiro安全管理器
     @Bean
     @Order(5)
@@ -38,22 +60,23 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 指定登录链接
         shiroFilterFactoryBean.setLoginUrl("/login");
+        Map<String , Filter > shiroFiltersMap = new LinkedHashMap<>();
+        shiroFiltersMap.put("authc" , new AccountFormAuthenticationFilter());
+        shiroFilterFactoryBean.setFilters(shiroFiltersMap);
+
         // 指定没有权限时跳转的页面
-        shiroFilterFactoryBean.setUnauthorizedUrl("/..");
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/login");
+
+        List<Access> accesses = accessDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
         // 权限认证链接map
         // TODO: 之后通过数据库动态导入
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/webjars/**", "anon");
-        filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/", "anon");
-        filterChainDefinitionMap.put("/front/**", "anon");
-        filterChainDefinitionMap.put("/api/**", "anon");
-
-        filterChainDefinitionMap.put("/admin/**", "authc");
-        filterChainDefinitionMap.put("/user/**", "authc");
-        filterChainDefinitionMap.put("/reg", "anon");
-        //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证
-        filterChainDefinitionMap.put("/**", "authc");
+        accesses.stream().forEach(v -> {
+            filterChainDefinitionMap.put(v.getResource_url(), v.isOpened()?"anon":"authc");
+        });
+//        filterChainDefinitionMap.put("/account/**", "authc");
+//        //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证
+//        filterChainDefinitionMap.put("/**", "anon");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
@@ -107,9 +130,11 @@ public class ShiroConfig {
     @Order(1)
     public CacheManager cacheManager(RedisManager redisManager) {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
+        ShiroFastJsonRedisSerializer shiroFastJsonRedisSerializer = new ShiroFastJsonRedisSerializer();
         redisCacheManager.setRedisManager(redisManager);
         redisCacheManager.setKeyPrefix("shiro-");
-        System.err.println(redisCacheManager);
+        redisCacheManager.setValueSerializer(shiroFastJsonRedisSerializer);
+        redisCacheManager.setKeySerializer(new StringSerializer());
         return redisCacheManager;
     }
     //==============================Session Cookie Id 配置==================================
