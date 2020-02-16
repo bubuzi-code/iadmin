@@ -2,9 +2,9 @@ package club.mikusun.iadmin.account.controller;
 
 import club.mikusun.iadmin.account.dao.AccountDao;
 import club.mikusun.iadmin.account.shiro.token.CustomToken;
-import club.mikusun.iadmin.account.util.R;
 import club.mikusun.iadmin.account.util.StringUtil;
 import club.mikusun.iadmin.domain.account.Account;
+import club.mikusun.iadmin.toolutils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

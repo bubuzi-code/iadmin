@@ -3,6 +3,7 @@ package club.mikusun.iadmin.account.shiro.Realm;
 import club.mikusun.iadmin.account.dao.AccountDao;
 import club.mikusun.iadmin.account.shiro.token.CustomToken;
 import club.mikusun.iadmin.domain.account.Account;
+import club.mikusun.iadmin.domain.account.Role;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
@@ -28,14 +29,22 @@ public class AccountRealm extends AuthorizingRealm {
     @Override
     // 获得账户权限详情
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        Account account = (club.mikusun.iadmin.domain.account.Account) SecurityUtils.getSubject().getPrincipal();
-        String account_str = account.getAccount_str();
+        Account account = (Account) SecurityUtils.getSubject().getPrincipal();
+
         // 构建简单账户详情
         // todo: 这里将通过权限表动态注入权限
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         Set<String> permissions = new HashSet<>();
-        permissions.add("account.login");
-        permissions.add("account.out");
+
+        Set<Role> roles = account.getRoles();
+
+        roles.forEach(v->{
+            info.addRole(v.getName());
+            v.getPermissions().forEach(j -> {
+                permissions.add(j.getPermission());
+            });
+        });
+
         info.addStringPermissions(permissions);
 
         return info;

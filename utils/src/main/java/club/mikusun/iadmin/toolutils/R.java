@@ -1,7 +1,4 @@
-package club.mikusun.iadmin.account.util;
-
-
-import net.bytebuddy.utility.RandomString;
+package club.mikusun.iadmin.toolutils;
 
 import java.util.Random;
 
