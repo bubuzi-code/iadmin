@@ -20,24 +20,9 @@
 
     <dependencies>
 
-        <!-- 导入对DOMAIN的依赖 -->
         <dependency>
             <groupId>club.mikusun.iadmin</groupId>
-            <artifactId>domain</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <!-- 导入对CACHE的依赖 -->
-        <dependency>
-            <groupId>club.mikusun.iadmin</groupId>
-            <artifactId>cache</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <!-- 导入对CACHE的依赖 -->
-        <dependency>
-            <groupId>club.mikusun.iadmin</groupId>
-            <artifactId>utils</artifactId>
+            <artifactId>spring-shiro</artifactId>
             <version>1.0</version>
         </dependency>
 
@@ -46,12 +31,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- shiro+redis缓存插件 -->
-        <dependency>
-            <groupId>org.crazycake</groupId>
-            <artifactId>shiro-redis</artifactId>
-            <version>3.2.3</version>
-        </dependency>
 
         <!-- 导入mysql驱动 -->
         <dependency>
@@ -67,12 +46,6 @@
             <version>1.1.10</version>
         </dependency>
 
-        <!-- 集成shiro -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>1.4.0</version>
-        </dependency>
         <!-- 解决包不可见 -->
 <!--        <dependency>-->
 <!--            <groupId>redis.clients</groupId>-->
