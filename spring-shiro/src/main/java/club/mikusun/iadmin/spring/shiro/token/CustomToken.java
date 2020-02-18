@@ -1,8 +1,5 @@
-package club.mikusun.iadmin.account.shiro.token;
+package club.mikusun.iadmin.spring.shiro.token;
 
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.HostAuthenticationToken;
-import org.apache.shiro.authc.RememberMeAuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 public class CustomToken extends UsernamePasswordToken {

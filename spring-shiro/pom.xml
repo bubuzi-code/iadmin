@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>parent</artifactId>
+        <groupId>club.mikusun.iadmin</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-shiro</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- 导入对DOMAIN的依赖 -->
+        <dependency>
+            <groupId>club.mikusun.iadmin</groupId>
+            <artifactId>domain</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- 导入对CACHE的依赖 -->
+        <dependency>
+            <groupId>club.mikusun.iadmin</groupId>
+            <artifactId>cache</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- 导入对utils的依赖 -->
+        <dependency>
+            <groupId>club.mikusun.iadmin</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- shiro+redis缓存插件 -->
+        <dependency>
+            <groupId>org.crazycake</groupId>
+            <artifactId>shiro-redis</artifactId>
+            <version>3.2.3</version>
+        </dependency>
+        <!-- 集成shiro -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+    </dependencies>
+
+</project>

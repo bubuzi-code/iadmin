@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+club.mikusun.iadmin.spring.shiro.config.ShiroConfig,\
+club.mikusun.iadmin.spring.shiro.config.ShiroAutoConfig
