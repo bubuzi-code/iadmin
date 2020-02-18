@@ -3,7 +3,7 @@ package club.mikusun.iadmin.spring.shiro.realm;
 
 import club.mikusun.iadmin.domain.account.Account;
 import club.mikusun.iadmin.domain.account.Role;
-import club.mikusun.iadmin.spring.shiro.interfaces.ShiroAccountDao;
+import club.mikusun.iadmin.spring.shiro.interfaces.ShiroAccountService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -22,7 +22,7 @@ import java.util.Set;
 public class AccountRealm extends AuthorizingRealm {
 
     @Autowired
-    private ShiroAccountDao accountDao;
+    private ShiroAccountService accountDao;
 
     @Override
     // 获得账户权限详情

@@ -2,12 +2,12 @@ package club.mikusun.iadmin.spring.shiro.token;
 
 import org.apache.shiro.authc.UsernamePasswordToken;
 
-public class CustomToken extends UsernamePasswordToken {
+public class AccountToken extends UsernamePasswordToken {
     private String account;
     private String password;
     private String host;
 
-    public CustomToken(String account, String password) {
+    public AccountToken(String account, String password) {
         this.account = account;
         this.password = password;
     }

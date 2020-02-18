@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ShiroAccessDao {
+public interface ShiroAccessService {
     List<Access> findAll(Sort var1);
 }

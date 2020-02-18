@@ -1,8 +1,8 @@
 package club.mikusun.iadmin.webutils.result.account;
 
-import club.mikusun.iadmin.webutils.result.Result;
+import club.mikusun.iadmin.webutils.result.BaseResult;
 
-public class AccountResult extends Result {
+public class AccountResult extends BaseResult {
     protected AccountResult(int code) {
         super(code);
     }
@@ -20,7 +20,7 @@ public class AccountResult extends Result {
     }
 
     public static AccountResult unauthorized(){
-        return new AccountResult(401,"Unauthorized [Current request requires user authentication]");
+        return new AccountResult(401,"Unauthorized [Current request requires user authentication | invalid token]");
     }
 
     public static AccountResult noPerm(){

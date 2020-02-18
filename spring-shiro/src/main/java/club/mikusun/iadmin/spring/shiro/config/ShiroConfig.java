@@ -1,14 +1,17 @@
 package club.mikusun.iadmin.spring.shiro.config;
 
 import club.mikusun.iadmin.domain.account.Access;
+import club.mikusun.iadmin.spring.shiro.interfaces.ShiroAccessService;
+import club.mikusun.iadmin.spring.shiro.properties.ShiroProperties;
 import club.mikusun.iadmin.spring.shiro.filter.AccountFormAuthenticationFilter;
 
-import club.mikusun.iadmin.spring.shiro.interfaces.ShiroAccessDao;
 import club.mikusun.iadmin.spring.shiro.realm.AccountRealm;
+import club.mikusun.iadmin.spring.shiro.realm.OAuth2Realm;
 import club.mikusun.iadmin.spring.shiro.seriallizer.ShiroFastJsonRedisSerializer;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -23,6 +26,7 @@ import org.crazycake.shiro.serializer.StringSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -35,11 +39,12 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
-@ConditionalOnClass({RedisOperations.class , ShiroAccessDao.class})
+@EnableConfigurationProperties(ShiroProperties.class)
+@ConditionalOnClass({RedisOperations.class , ShiroAccessService.class})
 public class ShiroConfig {
 
     @Autowired
-    private ShiroAccessDao shiroAccessDao;
+    private ShiroAccessService shiroAccessService;
     /**
      * 开启aop注解支持,鉴权
      * @param securityManager
@@ -55,7 +60,7 @@ public class ShiroConfig {
     // 传入shiro安全管理器
     @Bean
     @Order(5)
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager , ShiroProperties shiroProperties) {
         // Shiro过滤器创建工厂
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 绑定安全管理器
@@ -69,9 +74,10 @@ public class ShiroConfig {
         // 指定没有权限时跳转的页面
 //        shiroFilterFactoryBean.setUnauthorizedUrl("/login");
 
-        List<Access> accesses = shiroAccessDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<Access> accesses = shiroAccessService.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        final String anon = "anon";
+        final String authc = shiroProperties.getAuth_method().getName();
         // 权限认证链接map
-        // TODO: 之后通过数据库动态导入
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         accesses.stream().forEach(v -> {
             filterChainDefinitionMap.put(v.getResource_url(), v.isOpened()?"anon":"authc");
@@ -86,21 +92,42 @@ public class ShiroConfig {
 
     @Bean
     @Order(4)
-    public SecurityManager securityManager(AccountRealm accountRealm, CacheManager cacheManager , SessionManager sessionManager) {
+    public SecurityManager securityManager(Realm realm, CacheManager cacheManager , SessionManager sessionManager) {
         DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
         defaultSecurityManager.setCacheManager(cacheManager);
-        defaultSecurityManager.setRealm(accountRealm);
+        defaultSecurityManager.setRealm(realm);
         defaultSecurityManager.setSessionManager(sessionManager);
         return defaultSecurityManager;
     }
 
     @Bean
     @Order(2)
-    public AccountRealm accountRealm(HashedCredentialsMatcher hashedCredentialsMatcher, CacheManager cacheManager) {
+    public Realm realm(ShiroProperties properties ,HashedCredentialsMatcher hashedCredentialsMatcher, CacheManager cacheManager) {
+        Realm realm = null;
+        switch (properties.getAuth_method()){
+            case AUTHC:
+                realm = accountRealm(hashedCredentialsMatcher , cacheManager);
+                break;
+            case OAUTH2:
+                realm = oAuth2Realm(hashedCredentialsMatcher , cacheManager);
+                break;
+        }
+        return realm;
+    }
+
+    public Realm accountRealm(HashedCredentialsMatcher hashedCredentialsMatcher, CacheManager cacheManager){
         AccountRealm accountRealm = new AccountRealm();
         accountRealm.setCredentialsMatcher(hashedCredentialsMatcher);
         accountRealm.setCacheManager(cacheManager);
         return accountRealm;
+    }
+
+
+    public Realm oAuth2Realm(HashedCredentialsMatcher hashedCredentialsMatcher, CacheManager cacheManager){
+        OAuth2Realm oAuth2Realm = new OAuth2Realm();
+        oAuth2Realm.setCredentialsMatcher(hashedCredentialsMatcher);
+        oAuth2Realm.setCacheManager(cacheManager);
+        return oAuth2Realm;
     }
 
     @Bean

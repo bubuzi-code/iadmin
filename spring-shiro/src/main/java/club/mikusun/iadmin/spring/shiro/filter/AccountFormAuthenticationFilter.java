@@ -10,6 +10,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.PrintWriter;
 
+/**
+ * 当用户未登陆时调用的过滤器
+ */
 @Log4j2
 public class AccountFormAuthenticationFilter extends FormAuthenticationFilter {
     @Override

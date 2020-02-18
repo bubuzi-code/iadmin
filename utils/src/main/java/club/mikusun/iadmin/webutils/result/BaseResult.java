@@ -3,22 +3,24 @@ package club.mikusun.iadmin.webutils.result;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
 @Data
-public abstract class Result implements Serializable {
+@Accessors(chain = true)
+public abstract class BaseResult implements Serializable {
     private int code;
     private String massage;
     private Object data;
 
-    protected Result(int code){
+    protected BaseResult(int code){
         this(code,"",null);
     }
-    protected Result(int code,String massage){
+    protected BaseResult(int code,String massage){
         this(code,massage,null);
     }
-    protected Result(int code,String massage,Object data){
+    protected BaseResult(int code,String massage,Object data){
         this.code = code;
         this.massage = massage;
         this.data = data;
