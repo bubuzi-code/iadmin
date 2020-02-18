@@ -1,5 +1,6 @@
 package club.mikusun.iadmin.domain.account;
 
+import club.mikusun.iadmin.domain.module.interfaces.I_Account;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
@@ -19,7 +20,7 @@ import static javax.persistence.ConstraintMode.*;
         @Index(name = "uid" , columnList = "uid" , unique = true)
 })
 @NoArgsConstructor
-public class Account implements Serializable {
+public class Account implements Serializable, I_Account {
     // 账户id
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")

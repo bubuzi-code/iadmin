@@ -3,6 +3,7 @@ package club.mikusun.iadmin.spring.shiro.realm;
 
 import club.mikusun.iadmin.domain.account.Account;
 import club.mikusun.iadmin.domain.account.Role;
+import club.mikusun.iadmin.domain.module.interfaces.I_Account;
 import club.mikusun.iadmin.spring.shiro.interfaces.ShiroAccountService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -54,7 +55,7 @@ public class AccountRealm extends AuthorizingRealm {
         // 当前登录用户的用户名
         String account_str = (String) authenticationToken.getPrincipal();
         // 获取数据库中对应的用户数据
-        Account account = accountDao.findAccountByAccount(account_str);
+        I_Account account = accountDao.shiroFindAccountByAccountStr(account_str);
         // 通过掩码计算出盐
         ByteSource salt = ByteSource.Util.bytes(account.getSalt());
 

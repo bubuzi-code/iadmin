@@ -1,6 +1,7 @@
 package club.mikusun.iadmin.spring.shiro.config;
 
-import club.mikusun.iadmin.domain.account.Access;
+
+import club.mikusun.iadmin.domain.module.interfaces.I_Access;
 import club.mikusun.iadmin.spring.shiro.interfaces.ShiroAccessService;
 import club.mikusun.iadmin.spring.shiro.properties.ShiroProperties;
 import club.mikusun.iadmin.spring.shiro.filter.AccountFormAuthenticationFilter;
@@ -8,6 +9,7 @@ import club.mikusun.iadmin.spring.shiro.filter.AccountFormAuthenticationFilter;
 import club.mikusun.iadmin.spring.shiro.realm.AccountRealm;
 import club.mikusun.iadmin.spring.shiro.realm.OAuth2Realm;
 import club.mikusun.iadmin.spring.shiro.seriallizer.ShiroFastJsonRedisSerializer;
+
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.mgt.SecurityManager;
@@ -74,7 +76,7 @@ public class ShiroConfig {
         // 指定没有权限时跳转的页面
 //        shiroFilterFactoryBean.setUnauthorizedUrl("/login");
 
-        List<Access> accesses = shiroAccessService.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<I_Access> accesses = shiroAccessService.shiroFindAll(Sort.by(Sort.Direction.DESC, "id"));
         final String anon = "anon";
         final String authc = shiroProperties.getAuth_method().getName();
         // 权限认证链接map

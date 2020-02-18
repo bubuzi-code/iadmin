@@ -1,11 +1,11 @@
 package club.mikusun.iadmin.spring.shiro.interfaces;
 
 
-import club.mikusun.iadmin.domain.account.Account_Token;
+import club.mikusun.iadmin.domain.module.interfaces.I_Token;
 
-public interface ShiroTokenService {
+public interface ShiroTokenService<T extends I_Token> {
 
-    Account_Token findAccountByToken(String token);
+    T shiroFindAccountByToken(String token);
 
     long getExpireTime(String token);
     boolean isExpired(String token);

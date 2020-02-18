@@ -20,12 +20,12 @@ public class AccountServiceImpl extends BaseServiceImpl<Account , Integer>
 
 
     @Override
-    public Account findAccountByAccount(String account_str) {
+    public Account shiroFindAccountByAccountStr(String account_str) {
         return this.getDao().findAccountByAccount(account_str);
     }
 
     @Override
-    public Account findAccountByUid(int uid) {
+    public Account shiroFindAccountByUid(int uid) {
         return this.getDao().getOne(uid);
     }
 

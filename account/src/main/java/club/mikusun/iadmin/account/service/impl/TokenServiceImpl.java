@@ -32,7 +32,7 @@ public class TokenServiceImpl extends BaseServiceImpl<Account_Token , String>
     }
 
     @Override
-    public Account_Token findAccountByToken(String token) {
+    public Account_Token shiroFindAccountByToken(String token) {
         return getDao().findOneByToken(token);
     }
 

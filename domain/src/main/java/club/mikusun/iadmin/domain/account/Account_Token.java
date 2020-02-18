@@ -1,11 +1,13 @@
 package club.mikusun.iadmin.domain.account;
 
+import club.mikusun.iadmin.domain.module.interfaces.I_Token;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "account_token" , indexes = {
@@ -14,7 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Accessors(chain = true)
-public class Account_Token {
+public class Account_Token implements Serializable, I_Token {
 
     @Id
     @Column

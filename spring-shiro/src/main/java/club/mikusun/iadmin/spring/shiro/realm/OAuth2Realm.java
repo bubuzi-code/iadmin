@@ -3,6 +3,8 @@ package club.mikusun.iadmin.spring.shiro.realm;
 import club.mikusun.iadmin.domain.account.Account;
 import club.mikusun.iadmin.domain.account.Account_Token;
 import club.mikusun.iadmin.domain.account.Role;
+import club.mikusun.iadmin.domain.module.interfaces.I_Account;
+import club.mikusun.iadmin.domain.module.interfaces.I_Token;
 import club.mikusun.iadmin.spring.shiro.interfaces.ShiroAccountService;
 import club.mikusun.iadmin.spring.shiro.interfaces.ShiroTokenService;
 import club.mikusun.iadmin.spring.shiro.token.OAuth2Token;
@@ -61,12 +63,12 @@ public class OAuth2Realm extends AuthorizingRealm {
         String token = (String) authenticationToken.getPrincipal();
         if(StringUtils.hasText(token)){
             // 根据token拿到用户数据,忽略具体实现
-            Account_Token accountToken = shiroTokenService.findAccountByToken(token);
+            I_Token accountToken = shiroTokenService.shiroFindAccountByToken(token);
             // 判断token是否合法 或 是否过期
             if(null == accountToken || shiroTokenService.isExpired(token)){
                 throw new IncorrectCredentialsException("token失效，请重新登录");
             }
-            Account account = shiroAccountService.findAccountByUid(accountToken.getUid());
+            I_Account account = shiroAccountService.shiroFindAccountByUid(accountToken.getUid());
             return new SimpleAuthenticationInfo(account,token,getName());
         }
         return null;
