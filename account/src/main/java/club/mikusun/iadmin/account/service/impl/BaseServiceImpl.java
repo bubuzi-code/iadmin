@@ -22,9 +22,6 @@ public abstract class BaseServiceImpl<T, ID> implements BaseService<T, ID> {
     @Getter
     private JpaRepository<T, ID> dao;
 
-    @Autowired
-    private EntityManager em;
-
     public BaseServiceImpl(JpaRepository dao) {
         this.dao = this.getDao();
     }

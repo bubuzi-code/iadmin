@@ -26,6 +26,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account , Integer>
 
     @Override
     public Account findAccountByUid(int uid) {
-        return this.getDao().findAccountByUid(uid);
+        return this.getDao().getOne(uid);
     }
+
 }

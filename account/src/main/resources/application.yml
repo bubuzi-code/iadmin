@@ -28,3 +28,7 @@ spring:
   redis:
     host: localhost
     port: 6379
+
+mikusun:
+  shiro:
+    auth_method: authc

@@ -1,17 +1,24 @@
 package club.mikusun.iadmin.account.controller;
 
 import club.mikusun.iadmin.account.dao.AccountDao;
-import club.mikusun.iadmin.account.dao.PermissionDao;
-import club.mikusun.iadmin.account.dao.RoleDao;
-import club.mikusun.iadmin.account.shiro.token.CustomToken;
+import club.mikusun.iadmin.account.service.PermissionService;
+import club.mikusun.iadmin.account.service.RoleService;
+import club.mikusun.iadmin.account.service.TokenService;
 import club.mikusun.iadmin.cache.server.RedisServer;
+import club.mikusun.iadmin.domain.account.Account;
+import club.mikusun.iadmin.domain.account.Account_Token;
+import club.mikusun.iadmin.spring.shiro.token.AccountToken;
+import club.mikusun.iadmin.webutils.result.account.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.server.PathParam;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/login")
@@ -23,20 +30,28 @@ public class LoginController {
     private AccountDao accountDao;
 
     @Autowired
-    private RoleDao roleDao;
+    private RoleService roleService;
 
     @Autowired
-    private PermissionDao permissionDao;
+    private PermissionService permissionService;
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private ApplicationContext ioc;
 
     @PostMapping("")
-    public Object login(@RequestBody CustomToken customToken ,
+    public Object login(@RequestBody AccountToken accountToken ,
                         HttpServletResponse response){
         Subject subject = SecurityUtils.getSubject();
-        subject.login(customToken);
-//        Cookie cookie = new Cookie("")
-        redisServer.set("cookie",customToken.getPrincipal());
-        redisServer.set("account",subject.getPrincipal());
-        return "ok";
+        subject.login(accountToken);
+        Account account = (Account) subject.getPrincipal();
+        Account_Token token = tokenService.createToken((Account) subject.getPrincipal());
+        Cookie cookie = new Cookie("token",token.getToken());
+        response.addCookie(cookie);
+        redisServer.set(token.getToken() , account);
+        redisServer.expire(token.getToken() , token.getRedisExpireTime());
+        return Result.success();
     }
 
     @GetMapping("")
@@ -48,11 +63,20 @@ public class LoginController {
 
     @PostMapping("/{index}")
     public Object t1(@PathVariable("index") int index){
-        return roleDao.getOne(index);
+        return roleService.getOne(index);
     }
 
     @PostMapping("/t2")
     public Object t2(){
-        return permissionDao.getOne(1);
+        return permissionService.getOne(1);
+    }
+
+    @PostMapping("/t3")
+    public Object t3(){
+        Map<String, QueryByExampleExecutor> beansOfType = ioc.getBeansOfType(QueryByExampleExecutor.class);
+        beansOfType.forEach((k , v)->{
+            System.err.printf("key: %s ,\t value: %s\n" , k , v.getClass().toString());
+        });
+        return "ok";
     }
 }
