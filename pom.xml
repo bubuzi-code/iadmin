@@ -4,6 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
     <modules>
         <module>cache</module>
+        <module>spring-shiro</module>
     </modules>
     <!--	<modules>-->
 <!--		<module>account</module>-->
