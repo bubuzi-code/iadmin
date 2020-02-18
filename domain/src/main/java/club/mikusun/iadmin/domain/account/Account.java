@@ -43,7 +43,6 @@ public class Account implements Serializable {
     @Column
     private String salt;
 
-
     @ManyToMany(
             fetch = FetchType.EAGER,
             cascade = {CascadeType.REFRESH}
