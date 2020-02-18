@@ -41,12 +41,12 @@ public class OAuth2Realm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principals) {
-        Account account = (Account)principals.getPrimaryPrincipal();
+        Account account = (Account) principals.getPrimaryPrincipal();
         Set<String> permissions = new HashSet<>();
 
         Set<Role> roles = account.getRoles();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        roles.forEach(v->{
+        roles.forEach(v -> {
             info.addRole(v.getName());
             v.getPermissions().forEach(j -> {
                 permissions.add(j.getPermission());
@@ -54,22 +54,23 @@ public class OAuth2Realm extends AuthorizingRealm {
         });
 
         info.addStringPermissions(permissions);
-        return null;
+        return info;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(
             AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getPrincipal();
-        if(StringUtils.hasText(token)){
+        if (StringUtils.hasText(token)) {
             // 根据token拿到用户数据,忽略具体实现
             I_Token accountToken = shiroTokenService.shiroFindAccountByToken(token);
             // 判断token是否合法 或 是否过期
-            if(null == accountToken || shiroTokenService.isExpired(token)){
+            if (null == accountToken || shiroTokenService.isExpired(token)) {
                 throw new IncorrectCredentialsException("token失效，请重新登录");
             }
-            I_Account account = shiroAccountService.shiroFindAccountByUid(accountToken.getUid());
-            return new SimpleAuthenticationInfo(account,token,getName());
+            I_Account account = shiroAccountService
+                    .shiroFindAccountByRedisKey(accountToken.getRedisKey());
+            return new SimpleAuthenticationInfo(account, token, getName());
         }
         return null;
     }
