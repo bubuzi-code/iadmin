@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Base64;
 
 @Entity
 @Table(name = "account_token" , indexes = {
@@ -42,4 +43,14 @@ public class Account_Token implements Serializable, I_Token {
         long now = System.currentTimeMillis()/1000 - expireTime;
         return now>0?now:0;
     };
+
+    @Override
+    public String getRedisKey() {
+        Base64.Encoder encoder = Base64.getEncoder();
+        StringBuffer buffer = new StringBuffer(getClass().getName()+":"+this.uid);
+        byte[] encode = encoder.encode(buffer.toString().getBytes());
+
+        return new String(encode);
+    }
+
 }

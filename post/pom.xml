@@ -21,6 +21,19 @@
             <artifactId>spring-shiro</artifactId>
             <version>1.0</version>
         </dependency>
+        <!-- 导入mysql驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- 导入druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
     </dependencies>
 
 </project>

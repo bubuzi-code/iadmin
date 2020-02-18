@@ -6,10 +6,13 @@ import club.mikusun.iadmin.post.dao.AccessDao;
 import club.mikusun.iadmin.post.service.AccessService;
 import lombok.Getter;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class AccessServiceImpl extends BaseServiceImpl<Post_access , Integer> implements AccessService {
+@Service
+public class AccessServiceImpl extends BaseServiceImpl<Post_access , Integer>
+        implements AccessService {
     @Getter
     private AccessDao dao;
     public AccessServiceImpl(AccessDao dao) {

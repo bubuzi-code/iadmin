@@ -74,4 +74,11 @@ public class Account implements Serializable, I_Account {
     public int getId(){
         return this.uid;
     }
+
+    @Override
+    public I_Account ignoreMajor() {
+        this.password = null;
+        this.salt = null;
+        return this;
+    }
 }

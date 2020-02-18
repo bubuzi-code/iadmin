@@ -27,4 +27,12 @@ public class AccountResult extends BaseResult {
         return new AccountResult(403,"Forbidden [No request permission]");
     }
 
+    /////////////////////////////////自定义code///////////////////
+
+    public static AccountResult unknownAccount(){
+        return new AccountResult(40001,"unknown account [Please confirm your account]");
+    }
+    public static AccountResult credentialsException(){
+        return new AccountResult(40002,"did not match the expected credentials [Please confirm your credentials]");
+    }
 }

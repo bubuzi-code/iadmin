@@ -62,6 +62,8 @@ public class TokenServiceImpl extends BaseServiceImpl<Account_Token , String>
         String token = R.randomString(64);
         Account_Token accountToken = this.findOneByUid(account.getUid());
         if(null == accountToken){
+
+
             accountToken = new Account_Token()
                     .setToken(token)
                     .setUid(account.getUid())
@@ -69,6 +71,12 @@ public class TokenServiceImpl extends BaseServiceImpl<Account_Token , String>
                     .setLastUpdateTime(System.currentTimeMillis()/1000)
                     .setExpireTime(System.currentTimeMillis()/1000+60*60*24*7);
         }else{
+            /**
+             * 登陆成功后将之前缓存在redis的token删除
+             */
+            redisServer.del(accountToken.getToken() );
+            redisServer.del(accountToken.getRedisKey());
+
             accountToken.setToken(token)
                     .setLastUpdateTime(System.currentTimeMillis()/1000)
                     .setExpireTime(System.currentTimeMillis()/1000+60*60*24*7);

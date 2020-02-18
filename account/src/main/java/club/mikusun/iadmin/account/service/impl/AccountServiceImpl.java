@@ -3,7 +3,6 @@ package club.mikusun.iadmin.account.service.impl;
 import club.mikusun.iadmin.account.dao.AccountDao;
 import club.mikusun.iadmin.account.service.AccountService;
 import club.mikusun.iadmin.domain.account.Account;
-import club.mikusun.iadmin.spring.shiro.interfaces.ShiroAccountService;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +23,5 @@ public class AccountServiceImpl extends BaseServiceImpl<Account , Integer>
         return this.getDao().findAccountByAccount(account_str);
     }
 
-    @Override
-    public Account shiroFindAccountByUid(int uid) {
-        return this.getDao().getOne(uid);
-    }
 
 }

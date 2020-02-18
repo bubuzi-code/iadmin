@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"club.mikusun.iadmin.account.dao"})
-@EntityScan("club.mikusun.iadmin.domain")
+@EntityScan("club.mikusun.iadmin.domain.account")
 public class AccountApplication {
 
     public static void main(String[] args) {

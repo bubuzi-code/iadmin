@@ -17,8 +17,8 @@ public class StringUtil {
         return result.toString();
     }
 
-    public static void main(String[] args) {
-        System.err.println(md5("123456","321654987"));
-    }
+//    public static void main(String[] args) {
+//        System.err.println(md5("123456","321654987"));
+//    }
 
 }

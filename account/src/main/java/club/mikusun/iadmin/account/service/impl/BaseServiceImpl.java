@@ -23,7 +23,7 @@ public abstract class BaseServiceImpl<T, ID> implements BaseService<T, ID> {
     private JpaRepository<T, ID> dao;
 
     public BaseServiceImpl(JpaRepository dao) {
-        this.dao = this.getDao();
+        this.dao = dao;
     }
 
     public List<T> findAll() {
