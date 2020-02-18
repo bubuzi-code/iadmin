@@ -12,6 +12,7 @@ import java.util.Set;
 @Table(name = "permission")
 @NoArgsConstructor
 @Data
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer"})
 public class Permission implements Serializable {
 
     @Id
