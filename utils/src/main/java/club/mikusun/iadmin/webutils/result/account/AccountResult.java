@@ -2,6 +2,7 @@ package club.mikusun.iadmin.webutils.result.account;
 
 import club.mikusun.iadmin.webutils.result.BaseResult;
 
+
 public class AccountResult extends BaseResult {
     protected AccountResult(int code) {
         super(code);

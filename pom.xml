@@ -5,12 +5,11 @@
     <modules>
         <module>cache</module>
         <module>spring-shiro</module>
-    </modules>
-    <!--	<modules>-->
-<!--		<module>account</module>-->
-<!--		<module>post</module>-->
-<!--		<module>domain</module>-->
-<!--	</modules>-->
+		<module>db-dependencies</module>
+		<module>account-provide</module>
+		<module>account-consumer</module>
+	</modules>
+
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -27,8 +26,20 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<shiro.version>1.3.2</shiro.version>
+		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>

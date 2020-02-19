@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>parent</artifactId>
+        <groupId>club.mikusun.iadmin</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>account-provide</artifactId>
+
+    <dependencies>
+        <!-- 引入Account模块顶级接口 -->
+        <dependency>
+            <groupId>club.mikusun.iadmin</groupId>
+            <artifactId>account-top</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>club.mikusun.iadmin</groupId>
+            <artifactId>db-dependencies</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- 导入对CACHE的依赖 -->
+        <dependency>
+            <groupId>club.mikusun.iadmin</groupId>
+            <artifactId>cache</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- 导入对utils的依赖 -->
+        <dependency>
+            <groupId>club.mikusun.iadmin</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
+</project>
