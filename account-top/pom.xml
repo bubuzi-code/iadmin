@@ -5,32 +5,34 @@
     <parent>
         <groupId>club.mikusun.iadmin</groupId>
         <artifactId>parent</artifactId>
-        <version>1.0</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>account-top</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <scope>provided</scope>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
         </dependency>
-<!--        &lt;!&ndash;   引入数据库依赖     &ndash;&gt;-->
-<!--
-        这里存在问题,当引入db依赖后,会引入mysql,druid等包,
-        当消费端引入该包时,这应该是不允许的
-    -->
-<!--        <dependency>-->
-<!--            <groupId>club.mikusun.iadmin</groupId>-->
-<!--            <artifactId>db-dependencies</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
+
+        <!--   引入数据库依赖     -->
+        <!--
+            这里存在问题,当引入db依赖后,会引入mysql,druid等包,
+            当消费端引入该包时,这应该是不允许的
+        -->
+        <dependency>
+            <groupId>club.mikusun.iadmin</groupId>
+            <artifactId>db-undependencies</artifactId>
+            <version>${project.version}</version>
+<!--            <scope>provided</scope>-->
+        </dependency>
+
+
         <!--   引入domain     -->
         <dependency>
             <groupId>club.mikusun.iadmin</groupId>
             <artifactId>domain</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

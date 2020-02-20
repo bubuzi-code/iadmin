@@ -6,10 +6,12 @@
         <groupId>club.mikusun.iadmin</groupId>
         <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>account-consumer</artifactId>
-    <name>account-consumer</name>
+    <groupId>club.mikusun.iadmin</groupId>
+    <artifactId>eureka</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>eureka</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -17,23 +19,10 @@
     </properties>
 
     <dependencies>
-
         <dependency>
-            <groupId>club.mikusun.iadmin</groupId>
-            <artifactId>account-top</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
-        <dependency>
-            <groupId>club.mikusun.iadmin</groupId>
-            <artifactId>spring-shiro</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

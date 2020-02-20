@@ -5,12 +5,15 @@
     <parent>
         <artifactId>parent</artifactId>
         <groupId>club.mikusun.iadmin</groupId>
-        <version>1.0</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>db-dependencies</artifactId>
 
+<!--
+    java -Dmaven.multiModuleProjectDirectory=C:\Users\yzw\Desktop\project\iadmin\account-top -Dmaven.home=E:\ENV\MAVEN_HOME\apache-maven-3.6.1 -Dclassworlds.conf=E:\ENV\MAVEN_HOME\apache-maven-3.6.1\bin\m2.conf "-javaagent:D:\Program Files\JetBrains\IntelliJ IDEA 2019.1.3\lib\idea_rt.jar=51914:D:\Program Files\JetBrains\IntelliJ IDEA 2019.1.3\bin" -Dfile.encoding=UTF-8 -classpath E:\ENV\MAVEN_HOME\apache-maven-3.6.1\boot\plexus-classworlds-2.6.0.jar org.codehaus.classworlds.Launcher -Didea.version2019.1.3 -s E:\ENV\MAVEN_HOME\apache-maven-3.6.1\conf\settings.xml -e compile
+-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

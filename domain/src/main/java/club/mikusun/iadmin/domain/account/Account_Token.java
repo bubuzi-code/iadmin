@@ -4,7 +4,7 @@ import club.mikusun.iadmin.domain.module.interfaces.I_Token;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.springframework.data.repository.query.Param;
+
 
 import javax.persistence.*;
 import java.io.Serializable;

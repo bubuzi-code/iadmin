@@ -5,7 +5,7 @@
     <parent>
         <artifactId>parent</artifactId>
         <groupId>club.mikusun.iadmin</groupId>
-        <version>1.0</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -24,19 +24,19 @@
         <dependency>
             <groupId>club.mikusun.iadmin</groupId>
             <artifactId>domain</artifactId>
-            <version>1.0</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- 导入对CACHE的依赖 -->
         <dependency>
             <groupId>club.mikusun.iadmin</groupId>
             <artifactId>cache</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
         <!-- 导入对utils的依赖 -->
         <dependency>
             <groupId>club.mikusun.iadmin</groupId>
             <artifactId>utils</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
         <!-- shiro+redis缓存插件 -->
         <dependency>

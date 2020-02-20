@@ -1,6 +1,5 @@
 package club.mikusun.iadmin.account.controller;
 
-import club.mikusun.iadmin.account.dao.AccountDao;
 import club.mikusun.iadmin.account.service.PermissionService;
 import club.mikusun.iadmin.account.service.RoleService;
 import club.mikusun.iadmin.account.service.TokenService;
@@ -27,8 +26,8 @@ public class LoginController {
     @Autowired
     private RedisServer redisServer;
 
-    @Autowired
-    private AccountDao accountDao;
+//    @Autowired
+//    private AccountDao accountDao;
 
     @Autowired
     private RoleService roleService;
@@ -69,7 +68,8 @@ public class LoginController {
 
     @PostMapping("/{index}")
     public Object t1(@PathVariable("index") int index){
-        return roleService.getOne(index);
+
+        return "";
     }
 
     @PostMapping("/t2")
