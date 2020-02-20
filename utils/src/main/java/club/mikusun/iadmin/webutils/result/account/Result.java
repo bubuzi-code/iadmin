@@ -18,4 +18,7 @@ public class Result extends BaseResult {
     public static Result success(){
         return new Result(0 , "success");
     }
+    public static Result success(Object data){
+        return new Result(0 , "success" , data);
+    }
 }

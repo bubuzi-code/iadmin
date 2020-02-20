@@ -1,2 +1,23 @@
+spring:
+  application:
+    name: EurekaApplication
+
 server:
   port: 8761
+
+eureka:
+  instance:
+    hostname: eureka.mikusun.club
+    appname: EurekaApplication
+    ip-address: 127.0.0.1
+    prefer-ip-address: false
+  server:
+    eviction-interval-timer-in-ms: 60000
+  client:
+    # 声明是否将自己的信息注册到 Eureka 服务器上
+    register-with-eureka: false
+    # 是否到 Eureka 服务器中抓取注册信息
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}/eureka
+

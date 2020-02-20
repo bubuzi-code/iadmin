@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.sql.DataSource;
 import java.sql.Connection;
 
-@SpringBootTest(classes = AccountApplication.class)
+@SpringBootTest(classes = AccountConsumerApplication.class)
 class UserApplicationTests {
     @Autowired
     DataSource dataSource;

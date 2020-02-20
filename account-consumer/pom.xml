@@ -18,22 +18,38 @@
 
     <dependencies>
 
+        <!-- 导入account模块顶级接口 -->
         <dependency>
             <groupId>club.mikusun.iadmin</groupId>
             <artifactId>account-top</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>club.mikusun.iadmin</groupId>
-            <artifactId>spring-shiro</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
+        <!-- 导入shiro依赖 -->
+<!--        <dependency>-->
+<!--            <groupId>club.mikusun.iadmin</groupId>-->
+<!--            <artifactId>spring-shiro</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
+        <!-- 导入fegin -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <!-- 导入Eureka-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!-- 导入断容器-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
