@@ -20,4 +20,8 @@ public class AccountServiceImpl extends BaseServiceImpl<Account , Integer>
     }
 
 
+    @Override
+    public Account findAccountByAccountStr(String accountStr) {
+        return this.getDao().findAccountByAccount(accountStr);
+    }
 }

@@ -4,6 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
     <modules>
         <module>db-undependencies</module>
+        <module>post-provide</module>
     </modules>
     <!--    <modules>-->
 <!--        <module>cache</module>-->

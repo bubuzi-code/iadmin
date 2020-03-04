@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-club.mikusun.iadmin.cache.config.RedisCacheServerAutoConfiguration
+club.mikusun.iadmin.cache.config.RedisCacheServerAutoConfiguration,\
+club.mikusun.iadmin.cache.config.FormatConfig

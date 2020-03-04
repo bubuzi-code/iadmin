@@ -11,4 +11,5 @@ public interface AccountDao extends  JpaRepository<Account,Integer> {
 
     @Query("select a from Account a where a.account_str=:account")
     Account findAccountByAccount(@Param("account") String account);
+
 }

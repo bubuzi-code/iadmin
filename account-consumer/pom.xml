@@ -19,18 +19,18 @@
     <dependencies>
 
         <!-- 导入account模块顶级接口 -->
-        <dependency>
-            <groupId>club.mikusun.iadmin</groupId>
-            <artifactId>account-top</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- 导入shiro依赖 -->
 <!--        <dependency>-->
 <!--            <groupId>club.mikusun.iadmin</groupId>-->
-<!--            <artifactId>spring-shiro</artifactId>-->
+<!--            <artifactId>account-top</artifactId>-->
 <!--            <version>${project.version}</version>-->
 <!--        </dependency>-->
+
+        <!-- 导入shiro依赖 -->
+        <dependency>
+            <groupId>club.mikusun.iadmin</groupId>
+            <artifactId>spring-shiro</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- 导入fegin -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

@@ -12,8 +12,11 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class TokenServiceImpl extends BaseServiceImpl<Account_Token , String>
+public class TokenServiceImpl extends BaseServiceImpl<Account_Token , Integer>
         implements TopTokenService {
     @Getter
     private TokenDao dao;
@@ -29,5 +32,10 @@ public class TokenServiceImpl extends BaseServiceImpl<Account_Token , String>
         this.dao = dao;
     }
 
+
+    @Override
+    public Account_Token findOneByToken(String token) {
+        return this.getDao().findOneByToken(token);
+    }
 
 }

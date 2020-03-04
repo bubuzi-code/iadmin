@@ -11,8 +11,17 @@ public class AccountController {
     @Autowired
     private TopAccountService topAccountService;
 
-    @PostMapping("/{id}")
-    public Object getOne(@PathVariable("id") Integer id){
+    @PostMapping("/one/id/{id}")
+    public Object one(@PathVariable("id") Integer id){
         return Result.success(topAccountService.getOne(id));
     }
+
+    @PostMapping("/one/accountstr/{account}")
+    public Object one(@PathVariable("account") String account){
+        return Result.success(topAccountService.findAccountByAccountStr(account));
+    }
+
+
+
+
 }

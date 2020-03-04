@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: AccountConsumerApplication
+#  profiles:
+
   redis:
     host: localhost
     port: 6379
@@ -26,7 +28,12 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://eureka.mikusun.club/eureka
-
 mikusun:
   shiro:
     auth_method: authc
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 20000
+        read-timeout: 20000
