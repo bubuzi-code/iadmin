@@ -1,10 +1,8 @@
 package club.mikusun.iadmin.provide.account.controller;
 
 import club.mikusun.iadmin.db.data.Direction;
-import club.mikusun.iadmin.top.account.service.TopAccessService;
+import club.mikusun.iadmin.provide.account.service.AccessService;
 import club.mikusun.iadmin.webutils.result.account.Result;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class AccessController {
 
     @Autowired
-    private TopAccessService topAccessService;
+    private AccessService accessService;
 
     @PostMapping("/all")
     public Object all(
@@ -22,7 +20,7 @@ public class AccessController {
             @RequestParam(value = "fields") String[] fields
     ){
 
-        return Result.success(topAccessService.findAll(
+        return Result.success(accessService.findAll(
                 Sort.by(Sort.Direction.valueOf(direction.getName()) , fields)
         ));
     }

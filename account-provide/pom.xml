@@ -17,12 +17,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- 引入Account模块顶级接口 -->
+
         <dependency>
             <groupId>club.mikusun.iadmin</groupId>
-            <artifactId>account-top</artifactId>
+            <artifactId>domain</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>club.mikusun.iadmin</groupId>
             <artifactId>db-dependencies</artifactId>

@@ -1,35 +1,31 @@
 package club.mikusun.iadmin.provide.account.controller;
 
 import club.mikusun.iadmin.domain.account.Account_Token;
-import club.mikusun.iadmin.top.account.service.TopTokenService;
+import club.mikusun.iadmin.provide.account.service.TokenService;
 import club.mikusun.iadmin.webutils.result.account.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/token")
 public class TokenController {
 
     @Autowired
-    private TopTokenService topTokenService;
+    private TokenService tokenService;
 
     @PostMapping("/one/id/{id}")
     public Object one(@PathVariable("id")Integer id){
         Assert.notNull(id , "id is null");
-        return Result.success(topTokenService.getOne(id));
+        return Result.success(tokenService.getOne(id));
     }
 
     @PostMapping("/one/token/{token}")
     public Object one(@PathVariable("token")String token){
         Assert.notNull(token, "token is null");
-        return Result.success(topTokenService.findOneByToken(token));
+        return Result.success(tokenService.findOneByToken(token));
     }
 
     @PostMapping("/save/one")
@@ -38,7 +34,7 @@ public class TokenController {
         Account_Token result = null;
         String error = null;
         try {
-            result = topTokenService.save((Account_Token) data);
+            result = tokenService.save((Account_Token) data);
         } catch (Exception e) {
             e.printStackTrace();
             error = e.getMessage();
@@ -53,7 +49,7 @@ public class TokenController {
         List<Account_Token> result = null;
         String error = null;
         try {
-            result = topTokenService.saveAll(data);
+            result = tokenService.saveAll(data);
         } catch (Exception e) {
             e.printStackTrace();
             error = e.getMessage();
@@ -68,7 +64,7 @@ public class TokenController {
         Account_Token result = null;
         String error = null;
         try {
-            result = topTokenService.saveAndFlush((Account_Token) data);
+            result = tokenService.saveAndFlush((Account_Token) data);
         } catch (Exception e) {
             e.printStackTrace();
             error = e.getMessage();
